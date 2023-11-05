@@ -96,5 +96,4 @@ virtualenv==20.24.4
 wcwidth==0.2.6
 whitenoise==5.2.0
 zope.interface==6.0
-gunicorn 
 whitenoise== 5.2.0
