@@ -1,0 +1,184 @@
+{% load static %}
+
+
+<div class="main-content">
+    {% if user.is_authenticated %}
+
+        {% include 'components/componentes/write_post.html' %}
+
+        {% for post in posts %}
+            {% include 'components/componentes/post_component.html' %}
+        {% endfor %}
+        
+        {% if posts.has_previous %}
+            <button type="button" class="load-more-btn">
+                <a href="?page={{ posts.previous_page_number }}">Página anterior</a>
+            </button>
+        {% endif %}
+        {% if posts.has_next %}
+            <button type="button" class="load-more-btn">
+                <a href="?page={{ posts.next_page_number }}">Ver más</a>
+            </button>
+    {% endif %}
+
+    {% else %}
+    <div class="post-container">
+        <div class="post-row">
+            <div class="user-profile">
+                <div>
+                    <p>bienvenido a la nueva red social de la unach</p>
+                </div>
+            </div>
+            <a href="#"></a>
+        </div>
+        
+        <p class="post-text">hola bienvenido a esta increíble red social donde podrás conectarte con todo el mundo en LA UNIVERSIDAD AUTÓNOMA DE CHIAPAS. ¡BIENVENIDO!</p>
+            
+    </div>
+    {% endif %}
+    
+
+</div>
+
+  
+
+
+<script>
+    function toggleMenu(postId) {
+        var menu = document.getElementById("menu" + postId);
+        menu.classList.toggle("show");
+    }
+
+    document.getElementById('custom-upload-button').addEventListener('click', function() {
+        document.querySelector('.custom-file-input').click();
+    });
+
+    // Escuchar cambios en el campo de entrada de archivos
+    document.querySelector('#id_image').addEventListener('change', function() {
+        // Obtener el contenedor de vista previa de imágenes
+        var previewContainer = document.querySelector('#selected-images-preview');
+        // Limpiar el contenedor de vista previa
+        previewContainer.innerHTML = '';
+
+        // Recorrer los archivos seleccionados
+        for (var i = 0; i < this.files.length; i++) {
+            var file = this.files[i];
+            
+            // Crear un elemento de imagen para la vista previa
+            var img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.alt = 'Imagen adjunta';
+
+            // Agregar la imagen al contenedor de vista previa
+            previewContainer.appendChild(img);
+        }
+    });
+
+    window.onclick = function(event) {
+        if (!event.target.matches('.menu a')) {
+            var menus = document.getElementsByClassName('dropdown-content');
+            for (var i = 0; i < menus.length; i++) {
+                var menu = menus[i];
+                if (menu.classList.contains('show')) {
+                    menu.classList.remove('show');
+                }
+            }
+        }
+    }
+
+    $(document).ready(function() {
+        $(document).on("submit", ".like-form", function(e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var likeButton = form.find(".like-button");
+            $.ajax({
+                type: "POST",
+                url: form.attr("action"),
+                data: form.serialize(),
+                dataType: "json",
+                success: function(data) {
+                    var likeImage = data.is_like ?'{% static 'img/left-bar/dislike.png' %}':'{% static 'img/left-bar/like.png' %}' ;
+                    likeButton.find('img').attr('src', likeImage);
+                    form.siblings(".likes-count").text(data.likes_count);
+                }
+            });
+        });
+    });
+    document.querySelectorAll('.abrirModalComment').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const modalId = this.getAttribute('data-modal-target');
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'block';
+        });
+    });
+    
+    // Agrega un controlador de eventos para cerrar el modal cuando se hace clic en "Cerrar"
+    document.querySelectorAll('.closeComment').forEach(function(closeButton) {
+        closeButton.addEventListener('click', function() {
+            const modal = this.closest('.modal-comment');
+            modal.style.display = 'none';
+        });
+    });
+
+    $(document).ready(function() {
+        $(".comment-submit").on("click", function(event) {
+            event.preventDefault();
+    
+            var form = $(this).closest("form");
+            var formData = new FormData(form[0]);
+    
+            $.ajax({
+                type: form.attr("method"),
+                url: form.attr("action"),
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    try {
+                        if (data.comment && data.comment.author_profile_url && data.comment.author_username && data.comment.created_on && data.comment.comment) {
+                            var commentHTML = `
+                                <div class="comment">
+                                    <a href="${data.comment.author_profile_url}">
+                                        <div class="user-profile">
+                                            <img src="${data.comment.author_profile_url}" alt="">
+                                            <div>
+                                                <p>${data.comment.author_username}</p>
+                                                <small class="fecha">${data.comment.created_on}</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <p class="post-text">${data.comment.comment}</p>
+                                </div>
+                            `;
+    
+                            var commentContainer = form.siblings(".post-container");
+                            commentContainer.append(commentHTML);
+                            form[0].reset();
+                        } else {
+                            console.error("Los datos de comentario en la respuesta AJAX son incorrectos o están ausentes.");
+                        }
+                    } catch (error) {
+                        console.error("Error al procesar la respuesta AJAX: " + error);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error en la solicitud AJAX: " + textStatus);
+                }
+            });
+        });
+    });
+    
+    
+    
+    
+    
+    
+    
+  
+    
+      
+</script>
+
+
+

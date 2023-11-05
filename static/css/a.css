@@ -1,0 +1,82 @@
+.request-container {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #000;
+    text-align: left;
+    min-height: 100vh;
+    background-attachment: fixed;
+    padding: 20px;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif; /* Usar la fuente Roboto o la que prefieras */
+    font-size: 30px; /* Tamaño de fuente más grande */
+    text-align: center; /* Centrar horizontalmente */
+    margin: 5px 0; /* Ajustar los márgenes */
+    padding: 5px 0; /* Añadir un poco de espacio interior */
+}
+
+
+.request {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #666; /* Añadir un borde para la caja gris */
+    border-radius: 5px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    margin: 0;
+    font-weight: bold;
+}
+
+.timestamp {
+    margin: 0;
+    color: #767676;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.confirm, .delete {
+    margin: 10px 0;
+    width: 100px; /* Ancho fijo para ambos botones */
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confirm {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.delete {
+    background-color: #aaa;
+    color: #000;
+}

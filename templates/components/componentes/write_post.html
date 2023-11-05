@@ -1,0 +1,29 @@
+{% load static %}
+<form id='post_form' method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="write-post-container">
+        <div class="user-profile">
+            <img src="{{ user.profile.foto_de_perfil.url }}" alt="">
+            <div>
+                <p>{{ request.user.username }}</p>
+            </div>
+        </div>
+        <div class="post-input-container">
+            {{ form.body }}
+            <!-- Mostrar imágenes seleccionadas antes de enviar el formulario -->
+            <div id="selected-images-preview"></div>
+
+            <div class="add-post-links">
+                <a href="#" onclick="document.getElementById('post_form').submit(); return false;">
+                    <img src="{% static 'img/left-bar/expediente.png' %}" alt="Publicar">
+                    Publicar
+                </a>
+                <a href="#" id="custom-upload-button" class="custom-upload-link">
+                    <img src="{% static 'img/left-bar/galeria.png' %}" alt="Subir imagen">
+                    Subir imagen
+                </a>
+                {{ form.image }}
+            </div>
+        </div>
+    </div>
+</form>

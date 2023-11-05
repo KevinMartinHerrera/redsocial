@@ -1,0 +1,44 @@
+{% extends "account/base.html" %}
+{% load static %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="forms-container">
+      <div class="signin-signup">
+          <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            <h2 class="title">UNACH CONNECT</h2>
+            <div >
+              {{ form.as_p }}
+            </div>
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            
+            <input type="submit" value="Registrarse" class="btn solid">
+            <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "¿Olvidaste tu contraseña?" %}</a>
+          </form>
+      </div>
+  </div>
+  <div class="panels-container">
+    <div class="panel left-panel">
+        <div class="content">
+            <h3>¡Bienvenido a UNACH CONNECT!</h3>
+            <p>                Ya tienes cuenta!Inicia Sesion¡                   </p>
+            <a href="{% url 'account_login' %}"><button class="btn transparent" id="sign-up-btn">INICIAR SESION</button></a>
+        </div>
+    </div>
+
+</div>
+
+</div>
+{% endblock %}

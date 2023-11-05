@@ -1,0 +1,68 @@
+{% extends "account/base.html" %}
+{% load static %}
+
+
+{% load i18n %}
+
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+{% endblock %}
+  
+{% block content %}
+    <div class="container">
+        <div class="forms-container">
+            <div class="signin-signup">
+              <form class="sign-in-form" method="POST" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                <h2 class="title">UNACH CONNECT</h2>
+                <div >
+                  {{ form.as_p }}
+                </div>
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                
+                <input type="submit" value="Iniciar sesión" class="btn solid">
+                <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "¿Olvidaste tu contraseña?" %}</a>
+              </form>
+            {% comment %} <form class="sign-up-form signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+              {% csrf_token %}
+              <h2 class="title">UNACH CONNECT</h2>
+              {{ form.as_p }}
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+  
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+
+              <button type="submit" class="btn solid">{% trans "Sign Up" %} &raquo;</button>
+            </form> {% endcomment %}
+          </div>
+        </div>
+        <div class="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h3>¡Bienvenido a UNACH CONNECT!</h3>
+                    <p>Conéctate con tu universidad, campus y compañeros de manera sencilla. ¡Únete para estar al tanto de todo!</p>
+                    <a href="{% url 'account_signup' %}"><button class="btn transparent" id="sign-up-btn">Registrarse</button></a>
+                </div>
+
+            </div>
+            {% comment %} <div class="panel right-panel">
+                <div class="content">
+                    <h3>¿Ya eres parte de</h3>
+                    <P>UNACH CONNECT?</P>
+                    <button class="btn transparent" id="sign-in-btn">INICIAR SESION</button>
+                </div>
+                <img src="/images/Authentication_Outline.png" class="image" alt="">
+            </div> {% endcomment %}
+        </div>
+    </div>
+
+
+
+{% endblock %}

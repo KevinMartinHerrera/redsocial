@@ -1,0 +1,103 @@
+.request {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Incrementamos el espacio inferior */
+    padding: 15px; /* Incrementamos el relleno */
+    border: 1px solid #ccc; /* Color de borde más suave */
+    border-radius: 8px; /* Bordes más redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sutil sombra */
+    transition: transform 0.2s; /* Animación de transformación al pasar el mouse */
+}
+
+.request:hover {
+    transform: scale(1.02); /* Aumentar ligeramente el tamaño al pasar el mouse */
+}
+
+.user-info img {
+    width: 70px; /* Incrementamos el tamaño de la imagen */
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 15px; /* Incrementamos el espacio entre la imagen y el texto */
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: row; /* Cambiamos la dirección a horizontal */
+    align-items: center;
+    margin-left: auto; /* Empujamos los botones hacia la derecha */
+}
+
+.confirm, .delete {
+    margin: 0 10px; /* Espaciado horizontal entre botones */
+    padding: 10px 20px; /* Incrementamos el relleno de los botones */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s; /* Animación de cambio de color de fondo */
+}
+
+.confirm:hover, .delete:hover {
+    background-color: #007bff; /* Cambio de color al pasar el mouse */
+    color: #fff;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    margin: 0;
+    font-weight: bold;
+}
+
+.timestamp {
+    margin: 0;
+    color: #d0d0d0;
+}
+
+.user-facultad {
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+    margin-top: 5px; /* Ajustar el margen superior para separar la facultad del nombre */
+    color: #888; /* Color de texto más suave, ajusta según tus preferencias */
+}
+
+
+
+.confirm {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.delete {
+    background-color: #aaa;
+    color: #000;
+}
+.link-no-decoration {
+    text-decoration: none; /* Elimina la decoración de texto predeterminada */
+    color: inherit; /* Hereda el color del texto del contenedor */
+}
+/* Estilos para "Amigos" */
+.amigos {
+    background-color: #28a745;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center; /* Centrar el texto horizontalmente */
+}
+
+/* Estilos para "Pendiente" */
+.pendiente {
+    background-color: #ffc107;
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center; /* Centrar el texto horizontalmente */
+}

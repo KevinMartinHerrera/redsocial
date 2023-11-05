@@ -1,0 +1,106 @@
+{% load static %}
+
+
+    <div class="post-container">
+        <div class="post-row">
+            <a href="{% url 'accounts:profile' post.author.username %}">
+                <div class="user-profile">
+                    <img src="{{ post.author.profile.foto_de_perfil.url }}" alt="">
+                    <div>
+                        <p>{{ post.author.username }}</p>
+                        <small class="fecha">{{ post.created_on }}</small>
+                    </div>
+                </div>
+            </a>
+            {% if post.author == user %}
+                <div class="menu">
+                    <a href="#" onclick="toggleMenu(1)">...</a>
+                    <div id="menu1" class="dropdown-content">
+                        <a href="{% url 'social:edit_post' pk=post.id %}">Editar</a>
+                        <a href="{% url 'social:delete_post' pk=post.pk %}">Eliminar</a>
+                    </div>  
+                </div>
+            {% endif %}
+        </div>
+        <p class="post-text">{{ post.body }}</p>
+        
+        <div class="image-section">
+            <div class="image-grid{% if post.image.all.count == 1 %} single-image{% elif post.image.all.count == 2 %} two-images{% elif post.image.all.count == 3 %} three-images{% elif post.image.all.count == 4 %} four-images{% endif %}">
+                {% for image in post.image.all %}
+                    <div class="image-item">
+                        <img src="{{ image.image.url }}" alt="" class="post-img">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>   
+        
+        <div class="modal-comment" id="ModalComment{{ post.pk }}">
+            <div class="modal-content-comment">
+                <span class="closeComment" id="cerrarModalComment">&times;</span>
+                <h1>Comentarios</h1>
+                <div class="comment-container">
+                    {% for comment in post.comments.all %}
+                        
+                        <div class="comment">
+                            <a href="{% url 'accounts:profile' comment.author.username %}">
+                                <div class="user-profile">
+                                    <img src="{{ comment.author.profile.foto_de_perfil.url }}" alt="">
+                                    <div>
+                                        <p>{{ comment.author.username }}</p>
+                                        <small class="fecha">{{ comment.created_on }}</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <p class="post-text">{{ comment.comment }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="comment-form-container">
+                    <form id="comment-form-{{ post.pk }}" enctype="multipart/form-data" action="{% url 'social:create_comment' pk=post.pk %}" method="post" >
+                        {% csrf_token %}
+                        <div class="write-cooment-container">
+                            <div class="user-profile">
+                                <img src="{{ user.profile.foto_de_perfil.url }}" alt="">
+                                
+                            </div>
+                            <div class="comment-input-container">
+                                {{ CommentForm.comment }}
+                                <button type="submit" class="comment-submit">Agregar comentario</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+        <div class="post-row">
+            <div class="activity-icons">
+                <form class="like-form" method="post" action="{% url 'social:add_like' pk=post.pk %}">
+                    {% csrf_token %}
+                    {% if user in post.likes.all %}
+                        <button type="submit" class="like-button">
+                            <img src="{% static 'img/left-bar/like.png' %}" alt="">
+                        </button>
+                    {% else %}
+                        <button type="submit" class="like-button">
+                            <img src="{% static 'img/left-bar/dislike.png' %}" alt="">
+                        </button>
+                    {% endif %}
+                </form>
+                <div class="likes-count">{{ post.likes.count }}</div> 
+                <button class="like-button abrirModalComment" data-modal-target="ModalComment{{ post.pk }}">
+                    <img src="{% static 'img/main/1.png' %}" alt="">
+                </button>
+                <div class="likes-count">{{ post.comments.count }}</div> 
+            </div>
+            <div class="post-profile-icon">
+                <img src="{{ request.user.profile.foto_de_perfil.url }}" alt="">
+            </div>
+        </div>
+    </div>
+
+

@@ -1,0 +1,70 @@
+{% load static %}
+
+<div class="request-container">
+    <h1>Usuarios</h1>
+    {% if profile_list %}
+        {% for profile in profile_list %}
+            {% if profile.user != request.user %}
+                <div class="request">
+                    <div class="user-info">
+                        <a href="{% url 'accounts:profile' profile.user.profile.user.username %}">
+                            <img src="{{ profile.foto_de_perfil.url }}" alt="{{ profile.user.username }}">
+                        </a>
+                        <div class="user-details">
+                            <a href="{% url 'accounts:profile' profile.user.username %}" class="link-no-decoration">
+                                <div class="user-name">{{ profile.user.username }}</div>
+                            </a>
+                            <div class="user-facultad">{{user.facultad.nombre}}</div>
+                        </div>
+                        
+                    </div>
+                    <div class="action-buttons">
+                        {% if profile.user in amigos %}
+                            <p class="amigos">Amigos</p>
+                        {% elif profile.friend_request_status == 'pending' %}
+                            <p class="pendiente">Pendiente</p>
+                        {% elif profile.friend_request_status == 'not_sent' %}
+                            <a href="{% url 'accounts:send_friend_request' to_user_id=profile.user.id %}" class="confirm send-friend-request" data-userid="{{ profile.user.id }}">Agregar</a>
+                        {% endif %}
+                    </div>                
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>Usuario no encontrado</p>
+    {% endif %}
+</div>
+
+
+
+<script>
+    $(document).ready(function() {
+        $('.send-friend-request').click(function(e) {
+            e.preventDefault();
+            var userId = $(this).data('userid');
+            var requestUrl = $(this).attr('href');
+
+            $.ajax({
+                type: 'POST',
+                url: requestUrl,
+                data: { 'csrfmiddlewaretoken': '{{ csrf_token }}' },
+                success: function(data) {
+                    if (data.message === 'Solicitud de amistad enviada con éxito.') {
+                        alert('Solicitud de amistad enviada con éxito.');
+                        // Actualiza el botón o mensaje a "Pendiente" después de enviar la solicitud.
+                        $(this).text('Pendiente');
+                    } else if (data.message === 'Ya existe una solicitud pendiente de amistad entre estos usuarios.') {
+                        alert('Ya existe una solicitud pendiente de amistad entre estos usuarios.');
+                        // Actualiza el botón o mensaje a "Pendiente" si la solicitud ya existe.
+                        $(this).text('Pendiente');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error en la solicitud AJAX: ' + error);
+                }
+            });
+        });
+    });
+</script>
+    
+

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <!--css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilo.css' %}">
+{% endblock extra_head %}
+
+{% block navbar %}
+{% include 'components/navbar.html' %}
+{% endblock navbar %}
+
+{% block left-var %}
+{% include 'components/sidebars/left/sidebar.html' %}
+{% endblock left-var %}
+
+
+{% block main %}
+{% include 'components/editar.html' %}
+{% endblock main %}
+
+{% block right-var %}
+{% include 'components/sidebars/right/sidebar.html' %}
+{% endblock right-var %}
+

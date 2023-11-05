@@ -1,0 +1,72 @@
+<div class="request-container">
+    <h1>Solicitudes de Amistad</h1>
+    {% for request in incoming_requests %}
+        <div class="request">
+            <div class="user-info">
+                <img src="{{ request.from_user.profile.foto_de_perfil.url }}" alt="{{ request.from_user.username }}">
+                <div class="user-details">
+                    <div class="user-name">{{ request.from_user.username }}</div>
+                    <div class="timestamp">Hace {{ request.hours_ago }} horas</div>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="confirm accept-friend-request-button" data-requestid="{{ request.id }}">Confirmar</button>
+                <button class="delete reject-friend-request-button" data-requestid="{{ request.id }}">Eliminar</button>
+            </div>
+            
+            
+        </div>
+    {% endfor %}
+    {% if incoming_requests.count == 0 %}
+        <p>No tienes solicitudes de amistad entrantes.</p>
+    {% endif %}
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('.accept-friend-request-button').click(function() {
+            var friendRequestId = $(this).data('requestid');
+            var button = $(this);
+    
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'accounts:accept_friend_request' 0 %}'.replace('0', friendRequestId),
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(data) {
+                    if (data.success) {
+                        console.log('Solicitud de amistad aceptada');
+                        button.closest('.request').remove();  // Elimina la solicitud de amistad de la lista.
+                    } else {
+                        console.error('Error al aceptar la solicitud de amistad: ' + data.error);
+                    }
+                }
+            });
+        });
+    
+        $('.reject-friend-request-button').click(function() {
+            var friendRequestId = $(this).data('requestid');
+            var button = $(this);
+    
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'accounts:reject_friend_request' 0 %}'.replace('0', friendRequestId),
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(data) {
+                    if (data.success) {
+                        console.log('Solicitud de amistad rechazada');
+                        button.closest('.request').remove();  // Elimina la solicitud de amistad de la lista.
+                    } else {
+                        console.error('Error al rechazar la solicitud de amistad: ' + data.error);
+                    }
+                }
+            });
+        });
+    });
+    
+    
+</script>
+    

@@ -1,0 +1,41 @@
+{% load static %}
+<div class="left-sidebar">
+    {% if user.is_authenticated %}
+        <div class="imp-link">
+            <a href="{% url 'social:inicio' %}">
+                <img src="{% static 'img/left-bar/periodico.png' %}" alt="">
+                noticias nuevas
+            </a>
+            <a href="{% url 'accounts:profile' user.username %}">
+                <img src="{% static 'img/left-bar/perfil.png' %}" alt="">
+                tu perfil
+            </a>
+            <a href="{% url 'accounts:friend_requests' %}">
+                <img src="{% static 'img/left-bar/solicitud-de-amistad.png' %}" alt="">
+                solicitudes de amistades
+            </a>
+            <a href="{% url 'social:proximamente' %}">
+                <img src="{% static 'img/left-bar/multitud.png' %}" alt="">
+                grupos
+            </a>
+        </div> 
+        <div class="shortcut-links">
+            <p>Facultades</p>
+
+            <p>proximamente</p>
+            
+            {% for facultad in facultades %}
+                <a href="{% url 'social:proximamente' %}"><img src="{% static 'img/left-bar/colegio.png' %}" alt="">{{ facultad.nombre }}</a>
+            {% endfor %}  
+        </div>
+    {% else %}
+        <div class="shortcut-links">
+            <p>Facultades</p>
+            
+            {% for facultad in facultades %}
+                <a href="{% url 'social:proximamente' %}"><img src="{% static 'img/left-bar/colegio.png' %}" alt="">{{ facultad.nombre }}</a>
+            {% endfor %}
+        </div>
+     {% endif %}
+</div>
+

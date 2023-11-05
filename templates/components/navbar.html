@@ -1,0 +1,77 @@
+{% load static %}
+<nav>
+    {% if user.is_authenticated %}
+    <div class="nav-left">
+        <a href="{% url 'social:inicio' %}">
+            <img src="{% static 'img/nav-bar/primerlogo.png' %}" alt="" class="logo">
+        </a>
+        {% comment %} <ul>
+            <li><img src="{% static 'img/nav-bar/CORREONEW.svg' %}"  alt=""></li>
+            <li><img src="{% static 'img/nav-bar/grupo-de-chat.png' %}"  alt=""></li>
+        </ul> {% endcomment %}
+    </div>
+    <div class="nav-right">
+        <form method="GET" action="{% url 'social:search' %}">
+            <div class="search-box">
+                <button type="submit" class="invisible-button">
+                    <img src="{% static 'img/nav-bar/lupa.png' %}" alt="">
+                </button>
+                <input type="text" placeholder="buscar" name="query" value="{{request.GET.query}}">
+            </div>
+        </form>
+        <div class="nav-user-icon online" onclick="settingMenuToggle()">
+            <img src="{{ request.user.profile.foto_de_perfil.url }}" alt="">
+        </div>
+    </div>
+
+    <div class="settings-menu">
+        <div id="dark-btn" >
+            <span></span>
+        </div>
+
+        <div class="setting-menu-inner">
+            <div class="user-profile">
+                <img src="{{ request.user.profile.foto_de_perfil.url }}"  alt="">
+                <div>
+                    <p>{{request.user.username }}</p>
+                    <a href="{% url 'accounts:profile' request.user.username %}">tu perfil</a>
+                </div>
+            </div>
+            <hr>
+ 
+            <div class="settings-links">
+                <img src="setting.png" alt="" class="setting-icon">
+                <a href="#">ajustes y privacidad <img src="arrow.png" alt="" width="10px"></a>
+            </div>
+            
+                <div class="settings-links">
+                    <img src="setting.png" alt="" class="setting-icon">
+                    <a href="{% url 'account_logout' %}">cerrar sesion <img src="arrow.png" alt="" width="10px"></a>
+                </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="nav-left">
+            <a href="#">
+                <img src="{% static 'img/nav-bar/primerlogo.png' %}" alt="" class="logo">
+            </a>
+        </div>
+        <div class="nav-right">
+
+            
+            <div class="nav-user-icon online" onclick="settingMenuToggle()">
+                <a href="{% url 'account_login' %}">
+                    <img src= "{% static 'img/nav-bar/iniciar-sesion.png' %}" alt="">
+                </a>
+        </div>
+
+        <div class="settings-menu">
+            <div id="dark-btn" >
+                <span></span>
+            </div>
+
+        </div>
+
+    {% endif %}
+
+ </nav>

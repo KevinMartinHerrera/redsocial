@@ -1,0 +1,56 @@
+{% load static %}
+<div class="right-sidebar">
+    <div class="sidebar-title">
+        <h4>eventos</h4>
+        <a href="{% url 'events:create_event' %}">Crear Eventos</a>
+
+    </div>
+    {% for event in events %}
+    <div class="event">
+        <div class="left-event">
+            <h3>{{ event.date.day }}</h3>
+            <span>{{ event.date|date:"F" }}</span>
+        </div>
+        <div class="right-event">
+            <h4>{{ event.title }}</h4>
+            <p><i class="fa-solid fa-location-dot"></i>{{ event.faculty }}</p>
+            <a href="{% url 'social:proximamente' %}">Más info</a>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <div class="sidebar-title">
+            <h4>chats</h4>
+            <a href="{% url 'social:proximamente' %}">todos los mensajes</a>
+        </div>
+
+        {% for amigo in amigos %}
+            <div class="online-list">
+                <div class="online">
+                    <img src="{{amigo.profile.foto_de_perfil.url}}" alt="">
+                </div>
+                <p>{{ amigo.username }}</p>
+            </div>
+        {% endfor %}
+
+        <div class="sidebar-title">
+            <h4>amigos sugeridos</h4> 
+        </div>
+        {% for user in users|slice:":5" %}
+            <div class="online-list">
+                <div class="online">
+                    <a href="{% url 'accounts:profile' user.username %}">
+                        <img src="{{ user.profile.foto_de_perfil.url }}" alt="{{ user.username }}">
+                    </a>
+                </div>
+                <a href="{% url 'accounts:profile' user.username %}" class="link-no-decoration">
+                    <div class="user-name">{{ user.username }}</div>
+                </a>
+            </div>
+        {% endfor %}        
+    {% endif %}
+   
+
+</div>
+

@@ -1,0 +1,329 @@
+{% load static %}
+{% comment "" %} main {% endcomment %}
+<div class="profile-container">
+    <img src="{{user.profile.banner.url}}" alt="" class="cover-img">
+    <div class="profile-details">
+        <div class="pd-left">
+            <div class="pd-row">
+                 
+                <img src="{{user.profile.foto_de_perfil.url}}" alt="" class="pd-img" >
+                
+                <div>
+                    <h3>{{user.username}}</h3>
+                    
+                </div>
+            </div>
+        </div>
+       
+
+    
+        {% if user == request.user %}
+            <div class="pd-right">
+                <button type="button"  id="open">
+                    <img src="{% static 'img/left-bar/editar.png' %}" alt="">Editar perfil
+                </button>
+            </div>
+        {% endif %}
+        {% if user != request.user %}
+            <div class="pd-right">
+                {% if user in amigos %}
+                    <button type="button"> <img src="{% static 'img/left-bar/solicitud-de-amistad.png' %}" alt="">Amigos</button>
+                {% else %}
+                    <button type="button"> <img src="{% static 'img/left-bar/solicitud-de-amistad.png' %}" alt="">Agregar</button>
+                {% endif %}
+                <button type="button"> <img src="{% static 'img/left-bar/globos-de-texto.png' %}" alt="">Mensaje</button>
+                <a href="#"><img src="{% static 'img/left-bar/puntos.png' %}" alt=""></a>
+            </div>
+        {% endif %}
+
+
+    </div>
+
+    <div class="profile-info">
+        <div class="info-col">
+            <div class="profile-intro">
+                <h3>Descripción</h3>
+
+                
+                <p class="intro-text">{{user.profile.bio}}</p>
+                <hr>
+                <ul>
+                    <li><img src="{% static 'img/left-bar/redes-sociales.png' %}"  alt="">{{user.profile.red_social}}</li>
+                    <li><img src="{% static 'img/left-bar/colegio.png' %}" alt="">{{user.facultad.nombre}}</li>
+                    <li><img src="{% static 'img/left-bar/mapa.png' %}" alt="">{{user.profile.ciudad}}</li>
+                    <li><img src="{% static 'img/left-bar/edad.png' %}" alt="">{{user.profile.birthdate}}</li>
+                </ul>
+            </div>
+            <div class="profile-intro">
+                <div class="title-box">
+                    <h3>Fotos</h3>
+                    <a href="#">Todas las fotos</a>
+                </div>
+
+                <div class="photo-box">
+                    <div>
+                        <img src="{{ user.profile.foto_de_perfil.url }}" alt="Foto de perfil">
+                    </div>
+                    <!-- Las 6 imágenes más recientes relacionadas con el usuario a través de sus publicaciones -->
+                    {% for post in user_posts|slice:":3" %}
+                        {% for image in post.image.all %}
+                            <div>
+                                <img src="{{ image.image.url }}" alt="Foto">
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                
+                
+            </div>
+            <div class="profile-intro">
+                <div class="title-box">
+                    <h3>Amigos</h3>
+                    
+                    <a href="#">Todos los amigos</a>
+                </div>
+            
+                <div class="friend-box">
+                    {% for amigo in amigos %}
+                    <a href="{% url 'accounts:profile' amigo.username %}">
+                        <div><img src= "{{amigo.profile.foto_de_perfil.url}}"  alt=""><p>{{ amigo.username }}</p></div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+        <div class="post-col">
+
+            
+            {% for post in user_posts %}
+                <div class="post-container">
+                    <div class="post-row">
+                        <a href="{% url 'accounts:profile' post.author.username %}">
+                            <div class="user-profile">
+                                <img src="{{ post.author.profile.foto_de_perfil.url }}" alt="">
+                                <div>
+                                    <p>{{ post.author.username }}</p>
+                                    <small class="fecha">{{ post.created_on }}</small>
+                                </div>
+                            </div>
+                        </a>
+                        {% if post.author == user %}
+                            <div class="menu">
+                                <a href="#" onclick="toggleMenu(1)">...</a>
+                                <div id="menu1" class="dropdown-content">
+                                    <a href="{% url 'social:edit_post' pk=post.id %}">Editar</a>
+                                    <a href="{% url 'social:delete_post' pk=post.pk %}">Eliminar</a>
+                                </div>  
+                            </div>
+                        {% endif %}
+                    </div>
+                    <p class="post-text">{{ post.body }}</p>
+                    
+                    <div class="image-section">
+                        <div class="image-grid{% if post.image.all.count == 1 %} single-image{% elif post.image.all.count == 2 %} two-images{% elif post.image.all.count == 3 %} three-images{% elif post.image.all.count == 4 %} four-images{% endif %}">
+                            {% for image in post.image.all %}
+                                <div class="image-item">
+                                    <img src="{{ image.image.url }}" alt="" class="post-img">
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>   
+                    
+                    <div class="modal-comment" id="ModalComment{{ post.pk }}">
+                        <div class="modal-content-comment">
+                            <span class="closeComment" id="cerrarModalComment">&times;</span>
+                            <h1>Comentarios</h1>
+                            <div class="comment-container">
+                                {% for comment in post.comments.all %}
+                                    
+                                    <div class="comment">
+                                        <a href="{% url 'accounts:profile' comment.author.username %}">
+                                            <div class="user-profile">
+                                                <img src="{{ comment.author.profile.foto_de_perfil.url }}" alt="">
+                                                <div>
+                                                    <p>{{ comment.author.username }}</p>
+                                                    <small class="fecha">{{ comment.created_on }}</small>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <p class="post-text">{{ comment.comment }}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        
+        </div>
+    </div>
+</div>
+
+<script>
+    var settingMenu= document.querySelector(".settings-menu");
+    var darrkBtn= document.getElementById("dark-btn")
+    const open = document.getElementById('open');
+    const modal_container = document.getElementById('modal_container');
+    const close = document.getElementById('close');
+    
+    function settingMenuToggle(){
+        settingMenu.classList.toggle("setting-menu-height");
+    
+    
+    }
+    darrkBtn.onclick=function(){
+        darrkBtn.classList.toggle("dark-btn-on");
+        document.body.classList.toggle("dark-theme")
+    }
+  
+    
+    function settingPerfilToggle(){
+      settingMenu.classList.toggle("setting-profile");
+    
+    
+    }
+    
+    open.addEventListener('click', () => {
+      modal_container.classList.add('show');  
+    });
+    
+    close.addEventListener('click', () => {
+      modal_container.classList.remove('show');
+    });
+    function toggleMenu(postId) {
+        var menu = document.getElementById("menu" + postId);
+        menu.classList.toggle("show");
+    }
+
+    document.getElementById('custom-upload-button').addEventListener('click', function() {
+        document.querySelector('.custom-file-input').click();
+    });
+
+    // Escuchar cambios en el campo de entrada de archivos
+    document.querySelector('#id_image').addEventListener('change', function() {
+        // Obtener el contenedor de vista previa de imágenes
+        var previewContainer = document.querySelector('#selected-images-preview');
+        // Limpiar el contenedor de vista previa
+        previewContainer.innerHTML = '';
+
+        // Recorrer los archivos seleccionados
+        for (var i = 0; i < this.files.length; i++) {
+            var file = this.files[i];
+            
+            // Crear un elemento de imagen para la vista previa
+            var img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.alt = 'Imagen adjunta';
+
+            // Agregar la imagen al contenedor de vista previa
+            previewContainer.appendChild(img);
+        }
+    });
+
+    window.onclick = function(event) {
+        if (!event.target.matches('.menu a')) {
+            var menus = document.getElementsByClassName('dropdown-content');
+            for (var i = 0; i < menus.length; i++) {
+                var menu = menus[i];
+                if (menu.classList.contains('show')) {
+                    menu.classList.remove('show');
+                }
+            }
+        }
+    }
+
+    $(document).ready(function() {
+        $(document).on("submit", ".like-form", function(e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var likeButton = form.find(".like-button");
+            $.ajax({
+                type: "POST",
+                url: form.attr("action"),
+                data: form.serialize(),
+                dataType: "json",
+                success: function(data) {
+                    var likeImage = data.is_like ?'{% static 'img/left-bar/dislike.png' %}':'{% static 'img/left-bar/like.png' %}' ;
+                    likeButton.find('img').attr('src', likeImage);
+                    form.siblings(".likes-count").text(data.likes_count);
+                }
+            });
+        });
+    });
+    document.querySelectorAll('.abrirModalComment').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const modalId = this.getAttribute('data-modal-target');
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'block';
+        });
+    });
+    
+    // Agrega un controlador de eventos para cerrar el modal cuando se hace clic en "Cerrar"
+    document.querySelectorAll('.closeComment').forEach(function(closeButton) {
+        closeButton.addEventListener('click', function() {
+            const modal = this.closest('.modal-comment');
+            modal.style.display = 'none';
+        });
+    });
+
+    // ajax para los comentarios 
+    $(document).ready(function() {
+        $(".comment-submit").on("click", function(event) {
+            event.preventDefault(); // Evitar que se envíe el formulario automáticamente
+    
+            var form = $(this).closest("form");
+            var formData = new FormData(form[0]);
+    
+            $.ajax({
+                type: form.attr("method"),
+                url: form.attr("action"),
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    if (data.success) {
+                        // Comentario guardado con éxito
+
+    
+                        // Agregar el nuevo comentario a la vista
+                        var commentHTML = `
+                            <div class="comment">
+                                <a href="${data.comment.author_profile_url}">
+                                    <div class="user-profile">
+                                        <img src="${data.comment.author_profile_url}" alt="">
+                                        <div>
+                                            <p>${data.comment.author_username}</p>
+                                            <small class="fecha">${data.comment.created_on}</small>
+                                        </div>
+                                    </div>
+                                </a>
+                                <p class="post-text">${data.comment.comment}</p>
+                            </div>
+                        `;
+                        
+                        var commentContainer = form.siblings(".post-container");
+                        commentContainer.append(commentHTML);
+    
+                        // Limpia el formulario después de agregar el comentario
+                        form[0].reset();
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            });
+        });
+    });
+
+    
+    
+    
+    
+    
+  
+    
+      
+</script>
+

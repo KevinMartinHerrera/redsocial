@@ -1,0 +1,138 @@
+[
+    {
+        "model": "social.facultad",
+        "pk": 1,
+        "fields": {
+            "nombre": "Facultad de Arquitectura",
+            "descripcion": "Campus I, Tuxtla gutierrez"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 2,
+        "fields": {
+            "nombre": "Facultad de Contaduria Y Administracion",
+            "descripcion": "Campus I, Tuxtla gutierrez"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 3,
+        "fields": {
+            "nombre": "Facultad de Ingenierìa",
+            "descripcion": "Campus I, Tuxtla gutierrez"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 4,
+        "fields": {
+            "nombre": "Facultad de Lenguas",
+            "descripcion": "Campus I, Tuxtla gutierrez"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 5,
+        "fields": {
+            "nombre": "Facultad de Ciencia en Fisica y Matematicas",
+            "descripcion": "Campus I, Tuxtla gutierrez"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 6,
+        "fields": {
+            "nombre": "Facultad de Medicina Veteriana y Zootecnica",
+            "descripcion": "Campus II, Tuxtla gutierrez"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 7,
+        "fields": {
+            "nombre": "Facultad de Medicina Humana",
+            "descripcion": "Campus II, Tuxtla gutierrez"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 8,
+        "fields": {
+            "nombre": "Facultad de Humanidades",
+            "descripcion": "Campus VI, Tuxtla gutierrez"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 9,
+        "fields": {
+            "nombre": "Facultad de Derecho",
+            "descripcion": "Campus III, San Cristobal De Las Casas"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 10,
+        "fields": {
+            "nombre": "Facultad de Ciencia Sociales",
+            "descripcion": "Campus III, San Cristobal De Las Casas"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 11,
+        "fields": {
+            "nombre": "Facultad de Ciencia Quimica",
+            "descripcion": "Campus IV, Tapachula"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 12,
+        "fields": {
+            "nombre": "Facultad de Medicina Humana Tapachula",
+            "descripcion": "Campus IV, Tapachula"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 13,
+        "fields": {
+            "nombre": "Facultad de Ciencia de la Administracion",
+            "descripcion": "Campus IV, Tapachula"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 14,
+        "fields": {
+            "nombre": "Facultad de Ciencias Agricolas",
+            "descripcion": "Campus IV, Tapachula"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 15,
+        "fields": {
+            "nombre": "Facultad de Negocios",
+            "descripcion": "Campus IV, Tapachula"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 16,
+        "fields": {
+            "nombre": "Facultad de Ciencia Agronomicas",
+            "descripcion": "Campus V, Villaflores"
+        }
+    },
+    {
+        "model": "social.facultad",
+        "pk": 17,
+        "fields": {
+            "nombre": "Facultad de Ciencia Administrativas",
+            "descripcion": "Campus V, Comitan"
+        }
+    }
+]

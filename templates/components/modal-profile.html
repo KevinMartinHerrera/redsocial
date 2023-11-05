@@ -1,0 +1,58 @@
+{% load static %}
+
+<div id="modal_container" class="modal-container">
+    <form id="profile_form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal-header">
+            <h1>Actualizar Información</h1>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ profile_form.foto_de_perfil.id_for_label }}">Cargar Nueva Foto de Perfil:</label>
+            {{ profile_form.foto_de_perfil }}
+            {% if profile_form.foto_de_perfil.value %}
+                <label>Foto de Perfil Actual:</label>
+                <img src="{{ user.profile.foto_de_perfil.url }}" alt="{{ user.username }}" class="current-profile-photo">
+            {% endif %}
+        </div>
+
+        <!-- Aquí puedes agregar el campo para cargar un nuevo banner si lo necesitas -->
+        <!-- <div class="form-group">
+            <label for="{{ profile_form.banner.id_for_label }}">Cargar Nuevo Banner:</label>
+            {{ profile_form.banner }}
+            {% if profile_form.banner.value %}
+                <label>Banner Actual:</label>
+                <img src="{{ user.profile.banner.url }}" alt="Banner Actual" class="current-banner-photo-small">
+            {% endif %}
+        </div> -->
+
+        <div class="form-group">
+            <label for="{{ profile_form.red_social.id_for_label }}">Red Social:</label>
+            {{ profile_form.red_social }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ profile_form.ciudad.id_for_label }}">Ciudad:</label>
+            {{ profile_form.ciudad }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ profile_form.birthdate.id_for_label }}">Fecha de Nacimiento:</label>
+            {{ profile_form.birthdate }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ profile_form.bio.id_for_label }}">Biografía:</label>
+            {{ profile_form.bio }}
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn-submit">Guardar Cambios</button>
+        </div>
+        <div class="btn-close">
+            <button id="close" class="close-button">X</button>
+        </div>
+    </form>
+</div>
+
+
