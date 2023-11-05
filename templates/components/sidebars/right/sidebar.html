@@ -2,8 +2,9 @@
 <div class="right-sidebar">
     <div class="sidebar-title">
         <h4>eventos</h4>
-        <a href="{% url 'events:create_event' %}">Crear Eventos</a>
-
+        {% if user.is_authenticated %}
+            <a href="{% url 'events:create_event' %}">Crear Eventos</a>
+        {% endif %}
     </div>
     {% for event in events %}
     <div class="event">
