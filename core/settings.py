@@ -125,7 +125,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 
 DATABASES = {
-    "default": env.db("DATABASE_URL", default="postgres:///social1"),
+    "default": env.db("DATABASE_URL", default="postgres://root:Su993KtX23njI8XAGrudDysxlAzJQMu2@dpg-cl3pkugt3kic73dg0e20-a/social1"),
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
