@@ -27,6 +27,7 @@ daphne==3.0.2
 defusedxml==0.7.1
 distlib==0.3.7
 Django==3.2.2
+python-decouple
 django-allauth==0.56.1
 django-celery-beat==2.2.1
 django-ckeditor==6.1.0
