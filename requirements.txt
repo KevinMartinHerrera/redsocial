@@ -3,7 +3,7 @@ argon2-cffi==20.1.0
 arrow==1.2.3
 asgiref==3.4.1
 attrs==23.1.0
-autobahn==23.6.2
+autobahn
 Automat==22.10.0
 billiard==3.6.4.0
 binaryornot==0.4.4
@@ -34,7 +34,7 @@ django-clearcache==1.2.1
 django-cors-headers==3.7.0
 django-crispy-forms==1.12.0
 django-environ==0.4.5
-django-js-asset==2.1.0
+django-js-asset
 django-redis==5.0.0
 django-rest-auth==0.9.5
 django-storages==1.11.1
@@ -96,5 +96,4 @@ virtualenv==20.24.4
 wcwidth==0.2.6
 whitenoise==5.2.0
 zope.interface==6.0
-gunicorn 
 whitenoise== 5.2.0
