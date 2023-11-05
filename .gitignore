@@ -1,9 +1,7 @@
 # Ignorar carpetas de módulos de Node.js
 node_modules/
 
-# Ignorar el entorno virtual de Python (ejemplo: env/ o venv/)
-env/
-venv/
+
 
 # Archivos de caché y registro
 *.log
@@ -104,7 +102,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+
 .venv
 env/
 venv/
@@ -141,14 +139,8 @@ ngrok
 # ...
 
 # Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-env-env/
+
+
 # ========== Node.js ========== #
 # Node.js dependencies
 node_modules/
