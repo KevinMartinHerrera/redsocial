@@ -56,6 +56,7 @@
                 <img src="{% static 'img/nav-bar/primerlogo.png' %}" alt="" class="logo">
             </a>
         </div>
+        
         <div class="nav-right">
 
             
@@ -63,6 +64,15 @@
                 <a href="{% url 'account_login' %}">
                     <img src= "{% static 'img/nav-bar/iniciar-sesion.png' %}" alt="">
                 </a>
+                
+            </div>
+            <div class="nav-user-icon online" onclick="settingMenuToggle()">
+                <a href="{% url 'account_signup' %}">
+                    <img src= "{% static 'img/nav-bar/agregar-usuario.png' %}" alt="">
+                </a>
+            </div>
+                
+
         </div>
 
         <div class="settings-menu">
