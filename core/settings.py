@@ -10,7 +10,7 @@ ENVIRONMENT = env
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = 'RENDER' not in os.environ
+DEBUG = True
 
 ALLOWED_HOSTS = [
     '*'
@@ -192,7 +192,6 @@ if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
     # django-ckeditor will not work with S3 through django-storages without this line in settings.py
-    AWS_QUERYSTRING_AUTH = False
 
     # aws settings
 
