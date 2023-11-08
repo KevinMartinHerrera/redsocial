@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'social',
+    'tailwind',
     'theme',
     'core',
     'accounts',
@@ -77,7 +77,7 @@ ACCOUNT_LOGOUT_ON_GET =True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory' 
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 300
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'social:inicio'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/'
 LOGIN_URL="account_login"
