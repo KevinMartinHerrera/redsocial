@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from accounts.views import CustomSignupView
-from allauth.account.views import LoginView, LogoutView, SignupView
+
 
 
 
