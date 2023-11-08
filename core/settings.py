@@ -5,7 +5,6 @@ import environ
 
 env = environ.Env()
 environ.Env.read_env()
-DEBUG = False
 ENVIRONMENT = env
 
 BASE_DIR = Path(__file__).resolve().parent.parent
