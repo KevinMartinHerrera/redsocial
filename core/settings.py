@@ -40,13 +40,16 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    
     'tailwind',
     'theme',
+
+
     'core',
     'accounts',
     'events',
 
-    
+    'social',
 ]
 
 
