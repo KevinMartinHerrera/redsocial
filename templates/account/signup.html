@@ -20,9 +20,6 @@
             <div >
               {{ form.as_p }}
             </div>
-            {% if redirect_field_value %}
-                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-            {% endif %}
             
             <input type="submit" value="Registrarse" class="btn solid">
             <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "¿Olvidaste tu contraseña?" %}</a>
