@@ -6,11 +6,15 @@ class Socialpostforms(forms.ModelForm):
     image = forms.FileField(widget=forms.ClearableFileInput(attrs={
         'class': 'custom-file-input',
         'multiple': True,
+        
     }), required=False)
 
     class Meta:
         model = SocialPost
         fields = ['body']
+        widgets = {
+            'body': forms.TextInput(attrs={'placeholder': '¿Qué está pasando en tu universidad? Comparte noticias, eventos o pensamientos...'}),
+        }
         
         
 class SocialCommentsForm(forms.ModelForm):  
